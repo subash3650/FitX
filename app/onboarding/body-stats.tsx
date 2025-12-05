@@ -58,7 +58,7 @@ export default function BodyStatsScreen() {
                     </View>
 
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: theme.tint }]}
+                        style={[styles.button, { backgroundColor: '#0a7ea4' }]}
                         onPress={handleNext}
                     >
                         <ThemedText style={styles.buttonText}>Next</ThemedText>

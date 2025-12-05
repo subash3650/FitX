@@ -93,8 +93,6 @@ export const initDatabase = async () => {
 
             if (!hasTitle || !hasExercises) {
                 console.log('Migrating workouts table...');
-                // Drop old table and recreate (since we can't easily alter to add multiple columns with data preservation in this specific case without more complex logic, and old data was likely broken/unused if it crashed)
-                // Alternatively, we can try to add columns.
                 if (!hasTitle) await db.execAsync('ALTER TABLE workouts ADD COLUMN title TEXT');
                 if (!hasExercises) await db.execAsync('ALTER TABLE workouts ADD COLUMN exercises TEXT');
                 const hasIsTemplate = tableInfo.some(col => col.name === 'is_template');
@@ -105,8 +103,6 @@ export const initDatabase = async () => {
         } catch (error) {
             console.error('Error migrating workouts table:', error);
         }
-
-        // Migration: Check if workout_sessions table has new schema
         try {
             const tableInfo = await db.getAllAsync<{ name: string }>('PRAGMA table_info(workout_sessions)');
             const hasExercisesDone = tableInfo.some(col => col.name === 'exercises_done');
@@ -128,7 +124,6 @@ export const initDatabase = async () => {
             console.error('Error migrating workout_sessions table:', error);
         }
 
-        // Seed exercises if table is empty
         const exerciseCount = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM exercises');
         if (exerciseCount && exerciseCount.count === 0) {
             console.log('Seeding default exercises...');
@@ -145,7 +140,6 @@ export const initDatabase = async () => {
     }
 };
 
-// Exercise helpers
 export const getAllExercises = async () => {
     return await db.getAllAsync('SELECT * FROM exercises ORDER BY name');
 };
@@ -228,7 +222,9 @@ export const getLatestWeight = async () => {
 export const exportDatabase = async () => {
     const dbName = 'fitx.db';
     const dbPath = `${documentDirectory}SQLite/${dbName}`;
-    const backupPath = `${cacheDirectory}fitx_backup_${new Date().toISOString().split('T')[0]}.db`;
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T').join('_');
+    const backupFileName = `FitX_Backup_${timestamp}.fitx`;
+    const backupPath = `${cacheDirectory}${backupFileName}`;
 
     try {
         console.log('Attempting to export DB from:', dbPath);
@@ -249,15 +245,25 @@ export const exportDatabase = async () => {
             throw new Error(`Database file not found at ${dbPath}`);
         }
 
+        // Copy database to cache with new filename
         await copyAsync({
             from: dbPath,
             to: backupPath
         });
 
+        // Use application/octet-stream for better compatibility with messaging apps
         await Sharing.shareAsync(backupPath, {
-            mimeType: 'application/x-sqlite3',
-            dialogTitle: 'Backup FitX Data'
+            mimeType: 'application/octet-stream',
+            dialogTitle: 'Share FitX Backup',
+            UTI: 'public.data' // iOS compatibility
         });
+
+        // Clean up the backup file after sharing
+        try {
+            await deleteAsync(backupPath, { idempotent: true });
+        } catch (cleanupError) {
+            console.log('Cleanup error (non-critical):', cleanupError);
+        }
     } catch (error) {
         console.error('Error exporting database:', error);
         throw error;

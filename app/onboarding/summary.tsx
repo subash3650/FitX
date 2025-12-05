@@ -110,6 +110,7 @@ Target Calories: ${targetCalories} kcal
             router.replace('/(tabs)');
         } catch (error) {
             console.error('Error saving user:', error);
+            Alert.alert('Error', 'Failed to save your profile. Please try again.');
         } finally {
             setSaving(false);
         }
@@ -120,9 +121,9 @@ Target Calories: ${targetCalories} kcal
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 <ThemedText type="title" style={styles.title}>Your Plan</ThemedText>
 
-                <View style={styles.card}>
+                <View style={[styles.card, { backgroundColor: theme.card }]}>
                     <ThemedText type="subtitle">Daily Calories</ThemedText>
-                    <ThemedText type="title" style={{ color: theme.tint }}>{targetCalories} kcal</ThemedText>
+                    <ThemedText type="title" style={{ color: colorScheme === 'dark' ? '#0a7ea4' : theme.tint }}>{targetCalories} kcal</ThemedText>
                     <ThemedText>Maintenance: {bmr} kcal</ThemedText>
                 </View>
 
@@ -132,7 +133,7 @@ Target Calories: ${targetCalories} kcal
                 </ThemedText>
 
                 <TouchableOpacity
-                    style={[styles.button, { backgroundColor: theme.tint }]}
+                    style={[styles.button, { backgroundColor: '#0a7ea4' }]}
                     onPress={handleFinish}
                     disabled={saving}
                 >
@@ -163,7 +164,6 @@ const styles = StyleSheet.create({
     card: {
         padding: 30,
         borderRadius: 15,
-        backgroundColor: '#f0f0f0', // Should be themed properly
         alignItems: 'center',
         width: '100%',
         marginBottom: 30,

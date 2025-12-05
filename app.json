@@ -47,9 +47,6 @@
       "typedRoutes": true,
       "reactCompiler": true
     },
-    "updates": {
-      "url": "https://u.expo.dev/8dd861b6-b034-412e-946d-2fa56a72acc5"
-    },
     "runtimeVersion": {
       "policy": "appVersion"
     },

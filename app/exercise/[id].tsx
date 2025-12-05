@@ -74,7 +74,13 @@ export default function ExerciseDetailScreen() {
         );
     }
 
-    const cues = JSON.parse(exercise.cues) as string[];
+    // Safely parse cues with fallback
+    let cues: string[] = [];
+    try {
+        cues = exercise.cues ? JSON.parse(exercise.cues) : [];
+    } catch (e) {
+        console.error('Error parsing exercise cues:', e);
+    }
 
     return (
         <ThemedView style={styles.container}>
@@ -95,8 +101,8 @@ export default function ExerciseDetailScreen() {
                 <ThemedText type="title" style={styles.title}>{exercise.name}</ThemedText>
 
                 <View style={styles.metaContainer}>
-                    <View style={[styles.metaBadge, { backgroundColor: theme.tint }]}>
-                        <ThemedText style={[styles.metaBadgeText, { color: theme.background }]}>{exercise.category}</ThemedText>
+                    <View style={[styles.metaBadge, { backgroundColor: '#0a7ea4' }]}>
+                        <ThemedText style={styles.metaBadgeText}>{exercise.category}</ThemedText>
                     </View>
                 </View>
 
@@ -128,13 +134,13 @@ export default function ExerciseDetailScreen() {
                 </View>
 
                 <TouchableOpacity
-                    style={[styles.addButton, { backgroundColor: theme.tint }]}
+                    style={[styles.addButton, { backgroundColor: '#0a7ea4' }]}
                     onPress={() => {
                         // TODO: Add to workout
                         router.back();
                     }}
                 >
-                    <ThemedText style={[styles.addButtonText, { color: theme.background }]}>Add to Workout</ThemedText>
+                    <ThemedText style={styles.addButtonText}>Add to Workout</ThemedText>
                 </TouchableOpacity>
             </ScrollView>
         </ThemedView>

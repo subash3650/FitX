@@ -3,9 +3,10 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { getDB } from '@/services/database';
+import { useFocusEffect } from '@react-navigation/native';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Alert, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
@@ -34,10 +35,13 @@ export default function ProgressScreen() {
     const [selectingFromDate, setSelectingFromDate] = useState(true);
     const [accountCreationDate, setAccountCreationDate] = useState<string>('');
 
-    useEffect(() => {
-        loadData();
-        loadAccountDate();
-    }, []);
+    // Reload data when tab gains focus
+    useFocusEffect(
+        useCallback(() => {
+            loadData();
+            loadAccountDate();
+        }, [])
+    );
 
     const loadAccountDate = async () => {
         try {
@@ -279,7 +283,7 @@ export default function ProgressScreen() {
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 {/* Selected Date Filter */}
                 {selectedDate && (
-                    <View style={[styles.filterBanner, { backgroundColor: theme.tint }]}>
+                    <View style={[styles.filterBanner, { backgroundColor: '#0a7ea4' }]}>
                         <ThemedText style={{ color: '#fff', fontWeight: 'bold' }}>
                             Showing: {formatDate(selectedDate)}
                         </ThemedText>
@@ -370,7 +374,7 @@ export default function ProgressScreen() {
                                     [selectedDate]: {
                                         ...markedDates[selectedDate],
                                         selected: true,
-                                        selectedColor: theme.tint,
+                                        selectedColor: '#0a7ea4',
                                     }
                                 } : {})
                             }}
@@ -379,14 +383,14 @@ export default function ProgressScreen() {
                                 backgroundColor: theme.background,
                                 calendarBackground: theme.background,
                                 textSectionTitleColor: theme.text,
-                                selectedDayBackgroundColor: theme.tint,
+                                selectedDayBackgroundColor: '#0a7ea4',
                                 selectedDayTextColor: '#ffffff',
-                                todayTextColor: theme.tint,
+                                todayTextColor: '#0a7ea4',
                                 dayTextColor: theme.text,
                                 textDisabledColor: '#666',
-                                dotColor: theme.tint,
+                                dotColor: '#0a7ea4',
                                 selectedDotColor: '#ffffff',
-                                arrowColor: theme.tint,
+                                arrowColor: '#0a7ea4',
                                 monthTextColor: theme.text,
                                 textDayFontWeight: '400',
                                 textMonthFontWeight: 'bold',
@@ -395,7 +399,7 @@ export default function ProgressScreen() {
                         />
 
                         <TouchableOpacity
-                            style={[styles.closeButton, { backgroundColor: theme.tint }]}
+                            style={[styles.closeButton, { backgroundColor: '#0a7ea4' }]}
                             onPress={() => setShowCalendar(false)}
                         >
                             <ThemedText style={{ color: '#fff', fontWeight: 'bold' }}>Close</ThemedText>
@@ -447,13 +451,13 @@ export default function ProgressScreen() {
                                 ...(exportFromDate ? {
                                     [exportFromDate]: {
                                         selected: true,
-                                        selectedColor: theme.tint,
+                                        selectedColor: '#0a7ea4',
                                     }
                                 } : {}),
                                 ...(exportToDate ? {
                                     [exportToDate]: {
                                         selected: true,
-                                        selectedColor: theme.tint,
+                                        selectedColor: '#0a7ea4',
                                     }
                                 } : {})
                             }}
@@ -464,14 +468,14 @@ export default function ProgressScreen() {
                                 backgroundColor: theme.background,
                                 calendarBackground: theme.background,
                                 textSectionTitleColor: theme.text,
-                                selectedDayBackgroundColor: theme.tint,
+                                selectedDayBackgroundColor: '#0a7ea4',
                                 selectedDayTextColor: '#ffffff',
-                                todayTextColor: theme.tint,
+                                todayTextColor: '#0a7ea4',
                                 dayTextColor: theme.text,
                                 textDisabledColor: '#333',
-                                dotColor: theme.tint,
+                                dotColor: '#0a7ea4',
                                 selectedDotColor: '#ffffff',
-                                arrowColor: theme.tint,
+                                arrowColor: '#0a7ea4',
                                 monthTextColor: theme.text,
                                 textDayFontWeight: '400',
                                 textMonthFontWeight: 'bold',
@@ -495,7 +499,7 @@ export default function ProgressScreen() {
 
                             <TouchableOpacity
                                 style={[styles.exportButton, {
-                                    backgroundColor: exportFromDate && exportToDate ? theme.tint : '#999'
+                                    backgroundColor: exportFromDate && exportToDate ? '#0a7ea4' : '#999'
                                 }]}
                                 onPress={generatePDF}
                                 disabled={!exportFromDate || !exportToDate}

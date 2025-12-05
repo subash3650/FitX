@@ -3,8 +3,9 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { getDB } from '@/services/database';
+import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
@@ -15,9 +16,12 @@ export default function HomeScreen() {
   const [todayWorkouts, setTodayWorkouts] = useState(0);
   const [userName, setUserName] = useState('');
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  // Reload data when tab gains focus
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [])
+  );
 
   const loadData = async () => {
     try {
@@ -51,11 +55,11 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Main Action */}
         <TouchableOpacity
-          style={[styles.mainButton, { backgroundColor: theme.tint }]}
+          style={[styles.mainButton, { backgroundColor: '#0a7ea4' }]}
           onPress={() => router.push('/(tabs)/exercise-library')}
         >
-          <ThemedText style={[styles.mainButtonText, { color: theme.background }]}>📝 Log Today's Workout</ThemedText>
-          <ThemedText style={[styles.mainButtonSubtext, { color: theme.background }]}>Tap to pick an exercise</ThemedText>
+          <ThemedText style={styles.mainButtonText}>📝 Log Today's Workout</ThemedText>
+          <ThemedText style={styles.mainButtonSubtext}>Tap to pick an exercise</ThemedText>
         </TouchableOpacity>
 
         {/* Instructions */}

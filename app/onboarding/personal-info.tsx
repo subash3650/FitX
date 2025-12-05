@@ -4,7 +4,7 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function PersonalInfoScreen() {
     const router = useRouter();
@@ -23,6 +23,8 @@ export default function PersonalInfoScreen() {
                 pathname: '/onboarding/body-stats',
                 params: { name, age, gender, email, phone }
             });
+        } else {
+            Alert.alert('Missing Details', 'Please fill in all the details to proceed.');
         }
     };
 
@@ -92,7 +94,7 @@ export default function PersonalInfoScreen() {
                                     style={[
                                         styles.genderButton,
                                         { borderColor: theme.icon },
-                                        gender === g && { backgroundColor: theme.tint, borderColor: theme.tint }
+                                        gender === g && { backgroundColor: '#0a7ea4', borderColor: '#0a7ea4' }
                                     ]}
                                     onPress={() => setGender(g)}
                                 >
@@ -103,7 +105,7 @@ export default function PersonalInfoScreen() {
                     </View>
 
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: theme.tint }]}
+                        style={[styles.button, { backgroundColor: '#0a7ea4' }]}
                         onPress={handleNext}
                     >
                         <ThemedText style={styles.buttonText}>Next</ThemedText>

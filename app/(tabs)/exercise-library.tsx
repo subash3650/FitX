@@ -157,10 +157,10 @@ export default function ExerciseLibraryScreen() {
                             onChangeText={handleSearch}
                         />
                         <TouchableOpacity
-                            style={[styles.addButton, { backgroundColor: theme.tint }]}
+                            style={[styles.addButton, { backgroundColor: '#0a7ea4' }]}
                             onPress={() => setShowAddModal(true)}
                         >
-                            <ThemedText style={[styles.addButtonText, { color: theme.background }]}>+</ThemedText>
+                            <ThemedText style={styles.addButtonText}>+</ThemedText>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -177,8 +177,8 @@ export default function ExerciseLibraryScreen() {
                                 style={[
                                     styles.categoryChip,
                                     {
-                                        borderColor: selectedCategory === item ? theme.tint : theme.icon,
-                                        backgroundColor: selectedCategory === item ? theme.tint : 'transparent'
+                                        borderColor: selectedCategory === item ? '#0a7ea4' : theme.icon,
+                                        backgroundColor: selectedCategory === item ? '#0a7ea4' : 'transparent'
                                     }
                                 ]}
                                 onPress={() => setSelectedCategory(item)}
@@ -252,8 +252,8 @@ export default function ExerciseLibraryScreen() {
                                         style={[
                                             styles.categoryOption,
                                             {
-                                                borderColor: newCategory === cat ? theme.tint : theme.icon,
-                                                backgroundColor: newCategory === cat ? theme.tint : 'transparent'
+                                                borderColor: newCategory === cat ? '#0a7ea4' : theme.icon,
+                                                backgroundColor: newCategory === cat ? '#0a7ea4' : 'transparent'
                                             }
                                         ]}
                                         onPress={() => setNewCategory(cat)}
@@ -299,7 +299,7 @@ export default function ExerciseLibraryScreen() {
                                 style={styles.checkboxRow}
                                 onPress={() => setIsTimed(!isTimed)}
                             >
-                                <View style={[styles.checkbox, isTimed && { backgroundColor: theme.tint }]}>
+                                <View style={[styles.checkbox, isTimed && { backgroundColor: '#0a7ea4', borderColor: '#0a7ea4' }]}>
                                     {isTimed && <ThemedText style={{ color: '#fff' }}>✓</ThemedText>}
                                 </View>
                                 <ThemedText>Time-based exercise (e.g., Plank)</ThemedText>
@@ -314,10 +314,10 @@ export default function ExerciseLibraryScreen() {
                                 <ThemedText style={{ color: '#fff', fontWeight: 'bold' }}>Cancel</ThemedText>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.modalButton, { backgroundColor: theme.tint }]}
+                                style={[styles.modalButton, { backgroundColor: '#0a7ea4' }]}
                                 onPress={handleAddExercise}
                             >
-                                <ThemedText style={{ color: theme.background, fontWeight: 'bold' }}>Add Exercise</ThemedText>
+                                <ThemedText style={{ color: '#fff', fontWeight: 'bold' }}>Add Exercise</ThemedText>
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -4,7 +4,7 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const ACTIVITY_LEVELS = [
     { label: 'Sedentary', value: 'sedentary', desc: 'Little or no exercise' },
@@ -34,6 +34,8 @@ export default function GoalsScreen() {
                 pathname: '/onboarding/summary',
                 params: { ...params, activityLevel, goal }
             });
+        } else {
+            Alert.alert('Missing Selections', 'Please select both an activity level and a goal.');
         }
     };
 
@@ -54,7 +56,7 @@ export default function GoalsScreen() {
                                 style={[
                                     styles.optionButton,
                                     { borderColor: theme.icon },
-                                    activityLevel === level.value && { backgroundColor: theme.tint, borderColor: theme.tint }
+                                    activityLevel === level.value && { backgroundColor: '#0a7ea4', borderColor: '#0a7ea4' }
                                 ]}
                                 onPress={() => setActivityLevel(level.value)}
                             >
@@ -76,7 +78,7 @@ export default function GoalsScreen() {
                                 style={[
                                     styles.optionButton,
                                     { borderColor: theme.icon },
-                                    goal === g.value && { backgroundColor: theme.tint, borderColor: theme.tint }
+                                    goal === g.value && { backgroundColor: '#0a7ea4', borderColor: '#0a7ea4' }
                                 ]}
                                 onPress={() => setGoal(g.value)}
                             >
@@ -88,7 +90,7 @@ export default function GoalsScreen() {
                     </View>
 
                     <TouchableOpacity
-                        style={[styles.button, { backgroundColor: theme.tint }]}
+                        style={[styles.button, { backgroundColor: '#0a7ea4' }]}
                         onPress={handleNext}
                     >
                         <ThemedText style={styles.buttonText}>Calculate Plan</ThemedText>

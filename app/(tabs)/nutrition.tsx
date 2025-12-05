@@ -3,7 +3,8 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { addFoodEntry, deleteFoodEntry, getDB, getTodayFoodEntries, getTodayTotals } from '@/services/database';
-import { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 interface FoodEntry {
@@ -39,9 +40,12 @@ export default function NutritionScreen() {
     const [carbs, setCarbs] = useState('');
     const [fat, setFat] = useState('');
 
-    useEffect(() => {
-        loadData();
-    }, []);
+    // Reload data when tab gains focus
+    useFocusEffect(
+        useCallback(() => {
+            loadData();
+        }, [])
+    );
 
     const loadData = async () => {
         try {
@@ -134,7 +138,7 @@ export default function NutritionScreen() {
                 <View style={[styles.calorieCard, { backgroundColor: theme.card }]}>
                     <ThemedText type="subtitle">Today's Calories</ThemedText>
                     <View style={styles.calorieDisplay}>
-                        <ThemedText type="title" style={{ color: theme.tint, fontSize: 48 }}>
+                        <ThemedText type="title" style={{ color: '#0a7ea4', fontSize: 48 }}>
                             {Math.round(totals.calories)}
                         </ThemedText>
                         <ThemedText style={{ fontSize: 20, opacity: 0.6 }}>/ {goals.calories}</ThemedText>
@@ -156,10 +160,10 @@ export default function NutritionScreen() {
 
                 {/* Add Food Button */}
                 <TouchableOpacity
-                    style={[styles.addButton, { backgroundColor: theme.tint }]}
+                    style={[styles.addButton, { backgroundColor: '#0a7ea4' }]}
                     onPress={() => setShowAddForm(true)}
                 >
-                    <ThemedText style={[styles.addButtonText, { color: theme.background }]}>+ Log Food</ThemedText>
+                    <ThemedText style={styles.addButtonText}>+ Log Food</ThemedText>
                 </TouchableOpacity>
 
                 {/* Food Entries */}
@@ -256,10 +260,10 @@ export default function NutritionScreen() {
                         </View>
 
                         <TouchableOpacity
-                            style={[styles.submitButton, { backgroundColor: theme.tint }]}
+                            style={[styles.submitButton, { backgroundColor: '#0a7ea4' }]}
                             onPress={handleAddFood}
                         >
-                            <ThemedText style={[styles.submitButtonText, { color: theme.background }]}>Add Food</ThemedText>
+                            <ThemedText style={styles.submitButtonText}>Add Food</ThemedText>
                         </TouchableOpacity>
                     </ScrollView>
                 </View>

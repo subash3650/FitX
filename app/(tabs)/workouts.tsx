@@ -61,7 +61,12 @@ export default function WorkoutsScreen() {
     };
 
     const renderWorkoutCard = ({ item }: { item: Workout }) => {
-        const exercises = JSON.parse(item.exercises);
+        let exercises: any[] = [];
+        try {
+            exercises = JSON.parse(item.exercises || '[]');
+        } catch (e) {
+            console.error('Error parsing workout exercises:', e);
+        }
         return (
             <TouchableOpacity
                 style={[styles.workoutCard, { backgroundColor: theme.card }]}
@@ -83,10 +88,10 @@ export default function WorkoutsScreen() {
             <View style={styles.header}>
                 <ThemedText type="title">My Workouts</ThemedText>
                 <TouchableOpacity
-                    style={[styles.createButton, { backgroundColor: theme.tint }]}
+                    style={[styles.createButton, { backgroundColor: '#0a7ea4' }]}
                     onPress={() => router.push('/workout/create')}
                 >
-                    <ThemedText style={[styles.createButtonText, { color: theme.background }]}>+ New Workout</ThemedText>
+                    <ThemedText style={styles.createButtonText}>+ New Workout</ThemedText>
                 </TouchableOpacity>
             </View>
 

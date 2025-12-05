@@ -47,7 +47,14 @@ export default function ActiveWorkoutScreen() {
             );
             if (workout) {
                 setWorkoutTitle(workout.title);
-                const exs = JSON.parse(workout.exercises) as WorkoutExercise[];
+                let exs: WorkoutExercise[] = [];
+                try {
+                    exs = JSON.parse(workout.exercises || '[]') as WorkoutExercise[];
+                } catch (parseError) {
+                    console.error('Error parsing workout exercises:', parseError);
+                    Alert.alert('Error', 'Failed to load workout exercises');
+                    return;
+                }
                 setExercises(exs);
 
                 // Initialize set logs
@@ -63,6 +70,7 @@ export default function ActiveWorkoutScreen() {
             }
         } catch (error) {
             console.error('Error loading workout:', error);
+            Alert.alert('Error', 'Failed to load workout');
         }
     };
 
@@ -179,7 +187,7 @@ export default function ActiveWorkoutScreen() {
                             </View>
 
                             <TouchableOpacity
-                                style={[styles.checkButton, { borderColor: theme.icon }, set.completed && { backgroundColor: theme.tint }]}
+                                style={[styles.checkButton, { borderColor: theme.icon }, set.completed && { backgroundColor: '#0a7ea4' }]}
                                 onPress={() => toggleSetCompletion(currentExerciseIndex, idx)}
                             >
                                 {set.completed && <ThemedText style={{ color: '#fff' }}>✓</ThemedText>}
@@ -200,7 +208,7 @@ export default function ActiveWorkoutScreen() {
 
                     {currentExerciseIndex < exercises.length - 1 && (
                         <TouchableOpacity
-                            style={[styles.navButton, { backgroundColor: theme.tint }]}
+                            style={[styles.navButton, { backgroundColor: '#0a7ea4' }]}
                             onPress={() => setCurrentExerciseIndex(currentExerciseIndex + 1)}
                         >
                             <ThemedText style={{ color: '#fff' }}>Next Exercise</ThemedText>

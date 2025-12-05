@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function TabLayout() {
@@ -13,7 +12,8 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        // Use consistent teal color for active tab in both light and dark mode
+        tabBarActiveTintColor: '#0a7ea4',
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarStyle: Platform.select({

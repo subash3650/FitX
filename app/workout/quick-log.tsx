@@ -141,10 +141,10 @@ export default function QuickLogScreen() {
                 )}
 
                 <TouchableOpacity
-                    style={[styles.saveButton, { backgroundColor: theme.tint }]}
+                    style={[styles.saveButton, { backgroundColor: '#0a7ea4' }]}
                     onPress={handleSave}
                 >
-                    <ThemedText style={[styles.saveButtonText, { color: theme.background }]}>Save Workout</ThemedText>
+                    <ThemedText style={styles.saveButtonText}>Save Workout</ThemedText>
                 </TouchableOpacity>
             </ScrollView>
         </ThemedView>
