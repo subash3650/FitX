@@ -1,50 +1,89 @@
-# Welcome to your Expo app 👋
+# FitX - Ultimate Fitness & Nutrition Tracker 🏋️‍♂️🍎
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+FitX is a comprehensive, modern fitness and nutrition tracking application built with **React Native** and **Expo**. It empowers users to track workouts, monitor nutrition, and visualize progress with a sleek, dark-mode-optimized interface.
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+### 💪 Workout Tracking
+- **Exercise Library**: Access 18+ pre-seeded exercises with search and filtering by category (Strength, Cardio, etc.).
+- **Custom Workouts**: Create and save personalized workout templates.
+- **Session Logging**: Track sets, reps, and weights in real-time.
+- **Quick Log**: Instantly log single exercises without creating a full routine.
 
-   ```bash
-   npm install
-   ```
+### 🥗 Nutrition Management
+- **Macro Tracking**: Monitor daily calories, protein, carbs, and fat.
+- **Food Logging**: Easily add food entries with automatic macro calculation.
+- **Daily Goals**: Visual progress bars for daily nutritional targets.
 
-2. Start the app
+### 🎨 User Experience
+- **Dark Mode Support**: Fully optimized dark theme for comfortable night usage.
+- **Onboarding Flow**: Personalized setup to calculate BMR and fitness goals.
+- **OTA Updates**: Seamless over-the-air updates via EAS Update (no APK re-downloads needed!).
 
-   ```bash
-   npx expo start
-   ```
+## 🛠️ Tech Stack
 
-In the output, you'll find options to open the app in a
+- **Framework**: React Native (Expo SDK 52)
+- **Language**: TypeScript
+- **Database**: SQLite (expo-sqlite) for robust local storage
+- **Navigation**: Expo Router (File-based routing)
+- **Styling**: Custom theme system (Light/Dark mode support)
+- **Deployment**: EAS Build & EAS Update
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📱 Getting Started
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- Expo Go app on your mobile device
 
-## Get a fresh project
+### Installation
 
-When you're ready, run:
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/subash3650/FitX.git
+    cd FitX
+    ```
 
-```bash
-npm run reset-project
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run the app:**
+    ```bash
+    npx expo start
+    ```
+
+4.  **Scan & Run:**
+    - Scan the QR code with the **Expo Go** app (Android/iOS).
+
+## 🔄 Over-The-Air (OTA) Updates
+
+This app is configured with **EAS Update**.
+- **Developers**: Push updates instantly using `eas update --branch preview`.
+- **Users**: Receive updates automatically upon app restart.
+
+## 📂 Project Structure
+
+```
+app/
+├── (tabs)/          # Main tab screens (Home, Workouts, Progress, etc.)
+├── onboarding/      # User onboarding flow screens
+├── exercise/        # Exercise details and logging
+├── workout/         # Active workout session management
+services/
+├── database.ts      # SQLite database schema and helper functions
+├── exercises-data.ts # Initial seed data for exercises
+constants/
+├── theme.ts         # Design system and color palettes
+components/          # Reusable UI components (ThemedText, Cards, etc.)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🤝 Contributing
 
-## Learn more
+Contributions are welcome! Please fork the repository and submit a pull request.
 
-To learn more about developing your project with Expo, look at the following resources:
+## 👨‍💻 Developer
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Subash**
+- Portfolio: [https://subash-portfolio-six.vercel.app/](https://subash-portfolio-six.vercel.app/)
